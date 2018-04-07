@@ -1,43 +1,47 @@
 import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import Loadable from 'react-loadable';
-
+import XLSX from 'xlsx';
 import LazyLoading from '../../common/components/LazyLoading/LazyLoading'
-import { actions as exampleActions } from '../../redux/modules/example';
-import { exampleSelector } from '../../redux/selectors/exampleSelector';
-import { ExampleWithError } from '../../common/components/Example';
-import { ErrorBoundary } from '../../common/components/Utilities';
 
 require('../../../style/index.css');
 
-const LazyExample = Loadable({
-  loader: () => import('../../common/components/Example/Example'),
+const UploadFile = Loadable({
+  loader: () => import('../../common/components/UploadButton/UploadButton'),
   loading: LazyLoading,
 })
 
-const mapStateToProps = state => ({
-  example: exampleSelector(state),
-});
-
-const mapDispatchToProps = {
-  ...exampleActions,
-};
-
-@connect(mapStateToProps, mapDispatchToProps)
 class ExampleView extends Component {
-  static propTypes = {
-    example: PropTypes.object.isRequired,
+  constructor(props) {
+    super(props)
+    this.state = {
+      workbook: null,
+    }
   }
 
-  componentDidMount() {
-    this.props.getAwesomeCode();
+  onLoad = (e) => {
+    const bstr = e.target.result;
+    const workbook = XLSX.read(bstr, { type: 'binary', cellDates: true });
+    this.setState({ workbook });
+  }
+
+  onLoadEnd = () => {
+    console.log('done loading', this.state.workbook);
+  }
+
+  handleFileProcess = (ev) => {
+    const file = ev.target.files[0];
+    const reader = new FileReader();
+
+    reader.onload = this.onLoad
+    reader.onloadend = this.onLoadEnd
+
+    reader.readAsBinaryString(file);
   }
 
   render() {
     return (
       <Fragment>
-        <LazyExample {...this.props} />
+        <UploadFile processFile={this.handleFileProcess} />
       </Fragment>
     )
   }
