@@ -7,7 +7,7 @@ class UploadButton extends PureComponent {
   render() {
     return (
       <form onChange={this.props.processFile}>
-        <input type="file" multiple="true" />
+        <input type="file" accept=".csv" multiple="true" />
       </form>
     )
   }
