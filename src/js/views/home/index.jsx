@@ -64,7 +64,21 @@ class HomeView extends Component {
   render() {
     return (
       <Fragment>
+        <h1>Convert DJI .csv to TNP .txf</h1>
         <UploadFile processFile={this.handleFileProcess} />
+
+        <h3>Once you've downloaded the tracks from the iPad:</h3>
+        <ol>
+          <li><b>Click</b> the <b><i>Choose Files</i></b> button above
+            to select one or more .csv files.
+          </li>
+          <li>The tracks will automatically process to
+            Terrain Navigator Pro's .txf format, then download.
+          </li>
+          <li><b>Find</b> the new files in your downloads. <b>Send</b> the files
+            to the Search Manager and place copies in the X drive.
+          </li>
+        </ol>
       </Fragment>
     )
   }
