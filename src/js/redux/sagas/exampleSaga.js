@@ -6,7 +6,7 @@ import type { exampleType } from '../../common/types/example'
 export function* fetchExampleData() {
   // pretend there is an api call
   const result: exampleType = {
-    title: 'Everything is Awesome',
+    title: 'DJI to TNP',
     description: __CONFIG__.description,
     source: 'This message is coming from Redux',
   };

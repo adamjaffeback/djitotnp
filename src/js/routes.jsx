@@ -5,7 +5,7 @@ import {
   withRouter,
 } from 'react-router-dom';
 import { Header } from './common/components/Header';
-import ExampleRouteHandler from './views/example';
+import HomeRouteHandler from './views/home';
 
 import '../assets/fonts/fonts.css';
 
@@ -24,9 +24,9 @@ module.exports = (
     <hr />
     <div className="container__content">
       <Switch>
-        <Route exact path="/" component={ExampleRouteHandler} />
+        <Route exact path="/" component={HomeRouteHandler} />
         <Route path="/page" component={JustAnotherPage} />
-        <Route path="*" component={ExampleRouteHandler} />
+        <Route path="*" component={HomeRouteHandler} />
       </Switch>
     </div>
   </div>

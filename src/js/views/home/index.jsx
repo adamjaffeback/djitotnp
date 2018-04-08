@@ -10,7 +10,7 @@ const UploadFile = Loadable({
   loading: LazyLoading,
 })
 
-class ExampleView extends Component {
+class HomeView extends Component {
   download = (csvText) => {
     const element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(csvText));
@@ -70,4 +70,4 @@ class ExampleView extends Component {
   }
 }
 
-export default ExampleView;
+export default HomeView;
