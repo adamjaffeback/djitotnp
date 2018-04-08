@@ -20,7 +20,7 @@
   "html": [
     {
 			"name": "homepage",
-      "title": "Everything is Awesome",
+      "title": "DJI to TNP",
       "template": "_default.html",
       "filename": "index.html"
     }
