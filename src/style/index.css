@@ -13,3 +13,7 @@
 h1, h2 {
   font-family: YourFavoriteFont;
 }
+
+li {
+  margin: 1em auto;
+}
