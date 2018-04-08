@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import Loadable from 'react-loadable';
 import XLSX from 'xlsx';
+import Papa from 'papaparse';
 import LazyLoading from '../../common/components/LazyLoading/LazyLoading'
 
 require('../../../style/index.css');
@@ -18,24 +19,54 @@ class ExampleView extends Component {
     }
   }
 
-  onLoad = (e) => {
-    const bstr = e.target.result;
-    const workbook = XLSX.read(bstr, { type: 'binary', cellDates: true });
-    this.setState({ workbook });
-  }
+  download = (csvText) => {
+    const element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(csvText));
+    element.setAttribute('download', 'Track 1.txf');
 
-  onLoadEnd = () => {
-    console.log('done loading', this.state.workbook);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
   }
 
   handleFileProcess = (ev) => {
     const file = ev.target.files[0];
-    const reader = new FileReader();
+    Papa.parse(file, {
+      delimiter: ' ',
+      dynamicTyping: true,
+      complete: (results) => {
+        results.data.shift(); // get rid of headers
+        const clean = results.data.map((row) => {
+          row.shift();
+          row.shift();
+          row.shift();
 
-    reader.onload = this.onLoad
-    reader.onloadend = this.onLoadEnd
+          const noSpaces = row.filter((value) => {
+            return value !== '';
+          });
 
-    reader.readAsBinaryString(file);
+          noSpaces.pop();
+
+          return noSpaces;
+        }).filter((row) => {
+          return row.length > 0;
+        }).map((row) => {
+          row.push("\"Flight 1\"");
+          row.push("ff");
+          row.push(0);
+
+          return row;
+        });
+
+        const csv = Papa.unparse(clean);
+        const correctQuotes = csv.replace(/\"\"\"/g, '\"');
+
+        this.download(correctQuotes);
+      },
+    });
   }
 
   render() {
