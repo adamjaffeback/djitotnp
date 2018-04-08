@@ -97,8 +97,7 @@
     "redux": "^3.7.2",
     "redux-actions": "^2.2.1",
     "redux-saga": "^0.16.0",
-    "reselect": "^3.0.1",
-    "xlsx": "^0.12.8"
+    "reselect": "^3.0.1"
   },
   "jest": {
     "verbose": true,

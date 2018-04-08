@@ -1,6 +1,5 @@
 import React, { Component, Fragment } from 'react';
 import Loadable from 'react-loadable';
-import XLSX from 'xlsx';
 import Papa from 'papaparse';
 import LazyLoading from '../../common/components/LazyLoading/LazyLoading'
 
@@ -12,13 +11,6 @@ const UploadFile = Loadable({
 })
 
 class ExampleView extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      workbook: null,
-    }
-  }
-
   download = (csvText) => {
     const element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(csvText));
