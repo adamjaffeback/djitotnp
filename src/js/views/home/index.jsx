@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import Loadable from 'react-loadable';
+import { Link } from 'react-router-dom';
 import Papa from 'papaparse';
 import LazyLoading from '../../common/components/LazyLoading/LazyLoading'
 
@@ -74,7 +75,7 @@ class HomeView extends Component {
         <h1>Convert DJI .csv to TNP .txf</h1>
         <UploadFile processFile={this.handleFileProcess} />
 
-        <h3>Once you've downloaded the tracks from the iPad:</h3>
+        <h3>Once you've <Link to="/instructions">downloaded the tracks</Link> from the iPad:</h3>
         <ol>
           <li><b>Click</b> the <b><i>Choose Files</i></b> button above
             to select one or more .csv files.
