@@ -23,7 +23,7 @@ class Header extends PureComponent {
           <li className={!isInstructions ? 'active' : ''}>
             {
               isInstructions ?
-                'Just Another Page' : <Link to="/instructions">Instructions</Link>
+                'Instructions' : <Link to="/instructions">Instructions</Link>
             }
           </li>
         </ul>
