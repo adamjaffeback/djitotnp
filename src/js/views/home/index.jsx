@@ -11,10 +11,10 @@ const UploadFile = Loadable({
 })
 
 class HomeView extends Component {
-  download = (csvText) => {
+  download = (csvText, trackNumber) => {
     const element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(csvText));
-    element.setAttribute('download', 'Track 1.txf');
+    element.setAttribute('download', 'Track ' + trackNumber.toString() + '.txf');
 
     element.style.display = 'none';
     document.body.appendChild(element);
@@ -24,8 +24,7 @@ class HomeView extends Component {
     document.body.removeChild(element);
   }
 
-  handleFileProcess = (ev) => {
-    const file = ev.target.files[0];
+  parse = (file, fileIndex) => {
     Papa.parse(file, {
       delimiter: ' ',
       dynamicTyping: true,
@@ -46,8 +45,8 @@ class HomeView extends Component {
         }).filter((row) => {
           return row.length > 0;
         }).map((row) => {
-          row.push("\"Flight 1\"");
-          row.push("ff");
+          row.push('"Flight ' + fileIndex.toString() + '"');
+          row.push('ff');
           row.push(0);
 
           return row;
@@ -56,9 +55,17 @@ class HomeView extends Component {
         const csv = Papa.unparse(clean);
         const correctQuotes = csv.replace(/\"\"\"/g, '\"');
 
-        this.download(correctQuotes);
+        this.download(correctQuotes, fileIndex);
       },
     });
+  }
+
+  handleFileProcess = (ev) => {
+    const files = ev.target.files;
+
+    for (let i = 0; i < files.length; i++) {
+      this.parse(files.item(i), i + 1);
+    }
   }
 
   render() {
