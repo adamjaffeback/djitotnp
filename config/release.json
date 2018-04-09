@@ -1,4 +1,5 @@
 {
   "env": "release",
-  "publicPath": "./"
+  "publicPath": "./",
+  "s3Deploy": true
 }

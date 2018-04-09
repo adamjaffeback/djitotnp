@@ -5,10 +5,6 @@
   "port": "8080",
   "jsSourcePath": "src/js",
   "s3Deploy": false,
-  "s3": {
-    "bucket": "if-any",
-    "defaultCDNBase": "if-any"
-  },
   "optimization": {
     "commonMinCount": 3,
     "cssExclusion": true,

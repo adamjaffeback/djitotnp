@@ -16,7 +16,7 @@ process.traceDeprecation = false;
 // Please read the following link if
 // you have no idea how to use this feature
 // https://github.com/motdotla/dotenv
-if(!SHOULD_BUILD) {
+if(SHOULD_BUILD) {
   require('dotenv').config({silent: true});
 }
 
