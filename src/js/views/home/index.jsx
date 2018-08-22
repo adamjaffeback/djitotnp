@@ -46,7 +46,7 @@ class HomeView extends Component {
         }).filter((row) => {
           return row.length > 0;
         }).map((row) => {
-          row.push('"Flight ' + fileIndex.toString() + '"');
+          row.push(`"Flight ${fileIndex.toString()}"`);
           row.push('ff');
           row.push(0);
 
