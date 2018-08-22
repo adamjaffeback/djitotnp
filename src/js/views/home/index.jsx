@@ -14,7 +14,7 @@ const UploadFile = Loadable({
 class HomeView extends Component {
   download = (csvText, trackNumber) => {
     const element = document.createElement('a');
-    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(csvText));
+    element.setAttribute('href', `data:text/plain;charset=utf-8,${encodeURIComponent(csvText)}`);
     element.setAttribute('download', `DroneTrack ${trackNumber.toString()}.txf`);
 
     element.style.display = 'none';
