@@ -25,6 +25,18 @@ class HomeView extends Component {
     document.body.removeChild(element);
   }
 
+  needsTrailingZero = (latLongNum) => {
+    return latLongNum.toString().search(/\./) === -1;
+  }
+
+  addTrailingZero = (latLongNum) => {
+    if (this.needsTrailingZero(latLongNum)) {
+      return parseFloat(latLongNum).toFixed(1);
+    }
+
+    return latLongNum;
+  }
+
   parse = (file, fileIndex) => {
     Papa.parse(file, {
       delimiter: ' ',
@@ -46,11 +58,15 @@ class HomeView extends Component {
         }).filter((row) => {
           return row.length > 0;
         }).map((row) => {
-          row.push(`"Flight ${fileIndex.toString()}"`);
-          row.push('ff');
-          row.push(0);
+          const rowCopy = [...row];
+          rowCopy[0] = this.addTrailingZero(rowCopy[0]);
+          rowCopy[1] = this.addTrailingZero(rowCopy[1]);
 
-          return row;
+          rowCopy.push(`"Flight ${fileIndex.toString()}"`);
+          rowCopy.push('ff');
+          rowCopy.push(0);
+
+          return rowCopy;
         });
 
         const csv = Papa.unparse(clean);
