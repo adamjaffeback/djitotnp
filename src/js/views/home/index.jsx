@@ -2,6 +2,7 @@ import React, { Component, Fragment } from 'react';
 import Loadable from 'react-loadable';
 import { Link } from 'react-router-dom';
 import Papa from 'papaparse';
+import createGpx from 'gps-to-gpx';
 import LazyLoading from '../../common/components/LazyLoading/LazyLoading'
 
 require('../../../style/index.css');
@@ -12,10 +13,10 @@ const UploadFile = Loadable({
 })
 
 class HomeView extends Component {
-  download = (csvText, trackNumber) => {
+  download = (gpxText, trackNumber) => {
     const element = document.createElement('a');
-    element.setAttribute('href', `data:text/plain;charset=utf-8,${encodeURIComponent(csvText)}`);
-    element.setAttribute('download', `DroneTrack ${trackNumber.toString()}.txf`);
+    element.setAttribute('href', `data:text/plain;charset=utf-8,${encodeURIComponent(gpxText)}`);
+    element.setAttribute('download', `DroneTrack ${trackNumber.toString()}.gpx`);
 
     element.style.display = 'none';
     document.body.appendChild(element);
@@ -43,7 +44,7 @@ class HomeView extends Component {
       dynamicTyping: true,
       complete: (results) => {
         results.data.shift(); // get rid of headers
-        const clean = results.data.map((row) => {
+        const waypoints = results.data.map((row) => {
           row.shift();
           row.shift();
           row.shift();
@@ -58,21 +59,18 @@ class HomeView extends Component {
         }).filter((row) => {
           return row.length > 0;
         }).map((row) => {
-          const rowCopy = [...row];
-          rowCopy[0] = this.addTrailingZero(rowCopy[0]);
-          rowCopy[1] = this.addTrailingZero(rowCopy[1]);
-
-          rowCopy.push(`"Flight ${fileIndex.toString()}"`);
-          rowCopy.push('ff');
-          rowCopy.push(0);
-
-          return rowCopy;
+          return {
+            latitude: this.addTrailingZero(row[0]),
+            longitude: this.addTrailingZero(row[1]),
+          };
         });
 
-        const csv = Papa.unparse(clean);
-        const correctQuotes = csv.replace(/\"\"\"/g, '\"');
+        const gpx = createGpx(waypoints, {
+          activityName: `Flight ${fileIndex.toString()}`,
+          creator: 'DJI CSV to GPX',
+        });
 
-        this.download(correctQuotes, fileIndex);
+        this.download(gpx, fileIndex);
       },
     });
   }
