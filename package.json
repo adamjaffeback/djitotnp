@@ -41,7 +41,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "babel-register": "^6.26.0",
     "babel-runtime": "^6.26.0",
-    "browser-sync": "^2.23.5",
+    "browser-sync": "^2.24.7",
     "browser-sync-webpack-plugin": "^1.2.0",
     "case-sensitive-paths-webpack-plugin": "^2.1.1",
     "colors": "^1.1.2",
@@ -80,7 +80,7 @@
     "webpack-bundle-analyzer": "^2.9.2",
     "webpack-dashboard": "^1.0.2",
     "webpack-dev-server": "^2.11.0",
-    "webpack-s3-plugin": "^1.0.0-rc.0"
+    "webpack-s3-plugin": "^1.0.2"
   },
   "dependencies": {
     "history": "^4.7.2",
