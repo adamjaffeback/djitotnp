@@ -83,6 +83,7 @@
     "webpack-s3-plugin": "^1.0.2"
   },
   "dependencies": {
+    "gps-to-gpx": "^1.4.0",
     "history": "^4.7.2",
     "immutable": "^3.8.2",
     "papaparse": "^4.3.7",
