@@ -1,5 +1,5 @@
 # djitotnp
-Convert DJI csv tracks to Terrain Navigator Pro's TXF format.
+Convert DJI csv tracks to GPX format.
 
 ## Run Locally
 
