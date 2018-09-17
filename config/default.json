@@ -16,7 +16,7 @@
   "html": [
     {
 			"name": "homepage",
-      "title": "DJI to TNP",
+      "title": "DJI to GPX",
       "template": "_default.html",
       "filename": "index.html"
     }
