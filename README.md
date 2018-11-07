@@ -3,7 +3,7 @@ Convert DJI csv tracks to GPX format.
 
 ## Run Locally
 
-1. In a terminal window: `git clone https://github.com/adamjaffeback/djitotnp.git`
+1. In a terminal window: `git clone https://github.com/adamjaffeback/dronetracks.git`
 1. `cd djitotnp`
 1. `npm install`
 1. `npm start`. Wait for _Status_ to  be "Success".
